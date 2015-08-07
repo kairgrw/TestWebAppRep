@@ -1,0 +1,43 @@
+﻿@model TestWebApp.PR
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/MainLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PR</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SNAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SNAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CITY)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CITY)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COMM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COMM)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SNUM }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

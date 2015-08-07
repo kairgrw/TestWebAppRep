@@ -1,0 +1,19 @@
+﻿.main-layout-div {
+    padding-top:5%
+}
+
+.display-item {
+    border:1px solid;
+    width:300px
+}
+
+.base-text-area {
+    width:350px;
+    height:150px
+}
+
+/*
+    .field {clear:both; text-align:right; line-height:25px;}
+     label {float:left; padding-right:10px;}
+    .main {float:left}
+*/

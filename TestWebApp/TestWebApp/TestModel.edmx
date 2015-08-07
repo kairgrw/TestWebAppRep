@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище DealingsModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PR">
+          <Key>
+            <PropertyRef Name="SNUM" />
+          </Key>
+          <Property Name="SNUM" Type="int" Nullable="false" />
+          <Property Name="SNAME" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="CITY" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="COMM" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SD">
+          <Key>
+            <PropertyRef Name="ONUM" />
+          </Key>
+          <Property Name="ONUM" Type="int" Nullable="false" />
+          <Property Name="AMT" Type="real" Nullable="false" />
+          <Property Name="ODATE" Type="date" Nullable="false" />
+          <Property Name="CNUM" Type="int" Nullable="false" />
+          <Property Name="SNUM" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ZK">
+          <Key>
+            <PropertyRef Name="CNUM" />
+          </Key>
+          <Property Name="CNUM" Type="int" Nullable="false" />
+          <Property Name="CNAME" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="CITY" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RATING" Type="int" Nullable="false" />
+          <Property Name="SNUM" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_SD_PR_SNUM">
+          <End Role="PR" Type="Self.PR" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SD" Type="Self.SD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR">
+              <PropertyRef Name="SNUM" />
+            </Principal>
+            <Dependent Role="SD">
+              <PropertyRef Name="SNUM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SD_ZK_CNUM">
+          <End Role="ZK" Type="Self.ZK" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SD" Type="Self.SD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ZK">
+              <PropertyRef Name="CNUM" />
+            </Principal>
+            <Dependent Role="SD">
+              <PropertyRef Name="CNUM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище DealingsModelContainer">
+          <EntitySet Name="PR" EntityType="Self.PR" Schema="db_owner" store:Type="Tables" />
+          <EntitySet Name="SD" EntityType="Self.SD" Schema="db_owner" store:Type="Tables" />
+          <EntitySet Name="ZK" EntityType="Self.ZK" Schema="db_owner" store:Type="Tables" />
+          <AssociationSet Name="FK_SD_PR_SNUM" Association="Self.FK_SD_PR_SNUM">
+            <End Role="PR" EntitySet="PR" />
+            <End Role="SD" EntitySet="SD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SD_ZK_CNUM" Association="Self.FK_SD_ZK_CNUM">
+            <End Role="ZK" EntitySet="ZK" />
+            <End Role="SD" EntitySet="SD" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DealingsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="PR">
+          <Key>
+            <PropertyRef Name="SNUM" />
+          </Key>
+          <Property Name="SNUM" Type="Int32" Nullable="false" />
+          <Property Name="SNAME" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="CITY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="COMM" Type="Single" Nullable="false" />
+          <NavigationProperty Name="SD" Relationship="Self.FK_SD_PR_SNUM" FromRole="PR" ToRole="SD" />
+        </EntityType>
+        <EntityType Name="SD">
+          <Key>
+            <PropertyRef Name="ONUM" />
+          </Key>
+          <Property Name="ONUM" Type="Int32" Nullable="false" />
+          <Property Name="AMT" Type="Single" Nullable="false" />
+          <Property Name="ODATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CNUM" Type="Int32" Nullable="false" />
+          <Property Name="SNUM" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PR" Relationship="Self.FK_SD_PR_SNUM" FromRole="SD" ToRole="PR" />
+          <NavigationProperty Name="ZK" Relationship="Self.FK_SD_ZK_CNUM" FromRole="SD" ToRole="ZK" />
+        </EntityType>
+        <EntityType Name="ZK">
+          <Key>
+            <PropertyRef Name="CNUM" />
+          </Key>
+          <Property Name="CNUM" Type="Int32" Nullable="false" />
+          <Property Name="CNAME" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="CITY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RATING" Type="Int32" Nullable="false" />
+          <Property Name="SNUM" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SD" Relationship="Self.FK_SD_ZK_CNUM" FromRole="ZK" ToRole="SD" />
+        </EntityType>
+        <Association Name="FK_SD_PR_SNUM">
+          <End Role="PR" Type="Self.PR" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SD" Type="Self.SD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PR">
+              <PropertyRef Name="SNUM" />
+            </Principal>
+            <Dependent Role="SD">
+              <PropertyRef Name="SNUM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SD_ZK_CNUM">
+          <End Role="ZK" Type="Self.ZK" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SD" Type="Self.SD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ZK">
+              <PropertyRef Name="CNUM" />
+            </Principal>
+            <Dependent Role="SD">
+              <PropertyRef Name="CNUM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbDealingsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PR" EntityType="Self.PR" />
+          <EntitySet Name="SD" EntityType="Self.SD" />
+          <EntitySet Name="ZK" EntityType="Self.ZK" />
+          <AssociationSet Name="FK_SD_PR_SNUM" Association="Self.FK_SD_PR_SNUM">
+            <End Role="PR" EntitySet="PR" />
+            <End Role="SD" EntitySet="SD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SD_ZK_CNUM" Association="Self.FK_SD_ZK_CNUM">
+            <End Role="ZK" EntitySet="ZK" />
+            <End Role="SD" EntitySet="SD" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище DealingsModelContainer" CdmEntityContainer="dbDealingsEntities">
+          <EntitySetMapping Name="PR">
+            <EntityTypeMapping TypeName="DealingsModel.PR">
+              <MappingFragment StoreEntitySet="PR">
+                <ScalarProperty Name="SNUM" ColumnName="SNUM" />
+                <ScalarProperty Name="SNAME" ColumnName="SNAME" />
+                <ScalarProperty Name="CITY" ColumnName="CITY" />
+                <ScalarProperty Name="COMM" ColumnName="COMM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SD">
+            <EntityTypeMapping TypeName="DealingsModel.SD">
+              <MappingFragment StoreEntitySet="SD">
+                <ScalarProperty Name="ONUM" ColumnName="ONUM" />
+                <ScalarProperty Name="AMT" ColumnName="AMT" />
+                <ScalarProperty Name="ODATE" ColumnName="ODATE" />
+                <ScalarProperty Name="CNUM" ColumnName="CNUM" />
+                <ScalarProperty Name="SNUM" ColumnName="SNUM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZK">
+            <EntityTypeMapping TypeName="DealingsModel.ZK">
+              <MappingFragment StoreEntitySet="ZK">
+                <ScalarProperty Name="CNUM" ColumnName="CNUM" />
+                <ScalarProperty Name="CNAME" ColumnName="CNAME" />
+                <ScalarProperty Name="CITY" ColumnName="CITY" />
+                <ScalarProperty Name="RATING" ColumnName="RATING" />
+                <ScalarProperty Name="SNUM" ColumnName="SNUM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

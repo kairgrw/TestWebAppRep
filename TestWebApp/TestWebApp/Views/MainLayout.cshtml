@@ -1,0 +1,63 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Электронная библиотека</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+
+    <!--Custom styles for this project-->
+    <link href="~/Content/Custom_styles.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Электронная библиотека</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Регистрация", "RegisterNewUser", "Home")</li>
+                    <li>@Html.ActionLink("Вход", "AuthorizeUser", "Home")</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar main-layout-div">
+                <ul class="nav nav-sidebar">
+                    <li>@Html.ActionLink("Главная", "MainPage", "Home")</li>
+                    <li>@Html.ActionLink("Книги", "ShowBooks", "GeneralDisplay", new { sortType = "Order by Title" }, null)</li>
+                    <li>@Html.ActionLink("Авторы", "ShowAuthors", "GeneralDisplay", new { critery = "Authors" }, null)</li>
+                    <li>@Html.ActionLink("Помощь", "Help", "Home")</li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-md-10 main main-layout-div">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>
